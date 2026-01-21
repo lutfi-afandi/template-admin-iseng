@@ -13,7 +13,7 @@ Template ini cocok untuk:
 
 ## Gambar
 
-| ![gambar](ss/admin%20sendiri.png) |
+![gambar](ss/admin%20sendiri.png)
 
 ---
 
