@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenAdmin Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style/admin-style.css" />
+  </head>
+  <body class="h-100">
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <!-- Sidebar -->
+    <nav id="sidebar">
+      <!-- Sidebar Header -->
+      <div class="sidebar-header">
+        <div class="d-flex align-items-center gap-2 flex-grow-1">
+          <div class="sidebar-logo">
+            <i class="bi bi-grid-3x3-gap-fill"></i>
+          </div>
+          <span class="sidebar-brand" id="appName">GreenAdmin</span>
+          <button
+            class="btn p-0 sidebar-toggle-btn d-none d-lg-block"
+            id="sidebarToggleDesktop"
+          >
+            <i class="bi bi-list"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Sidebar Menu -->
+      <div class="sidebar-menu">
+        <div class="menu-header">
+          <span>Main Menu</span>
+        </div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="bi bi-house-door"></i> <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              href="#"
+              class="nav-link"
+              data-bs-toggle="collapse"
+              data-bs-target="#analyticsSubmenu"
+              aria-expanded="false"
+            >
+              <i class="bi bi-graph-up"></i> <span>Analytics</span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="submenu collapse" id="analyticsSubmenu">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Overview</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Reports</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Statistics</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-people"></i> <span>Users</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-box-seam"></i> <span>Products</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-cart3"></i> <span>Orders</span>
+            </a>
+          </li>
+        </ul>
+        <div class="menu-header mt-4">
+          <span>Settings</span>
+        </div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-gear"></i> <span>Settings</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-shield-check"></i> <span>Security</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <img
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&amp;h=100&amp;fit=crop&amp;crop=face"
+            alt="User"
+            class="user-avatar"
+            loading="lazy"
+            onerror="
+              this.alt = 'User Avatar';
+              this.src =
+                'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%2310b981%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22>JD</text></svg>';
+            "
+          />
+          <div class="user-details">
+            <div class="user-name" id="userName">John Doe</div>
+            <div class="user-role">Administrator</div>
+          </div>
+        </div>
+        <button class="btn-logout">
+          <i class="bi bi-box-arrow-left"></i> <span>Logout</span>
+        </button>
+      </div>
+    </nav>
+    <!-- Main Wrapper -->
+    <div id="main-wrapper" class="d-flex flex-column">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid px-0">
+          <button class="navbar-toggler" type="button" id="sidebarToggle">
+            <i class="bi bi-list"></i>
+          </button>
+          <div class="ms-auto d-flex align-items-center">
+            <!-- message -->
+            <div class="dropdown me-3">
+              <button
+                class="btn position-relative"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                <i class="bi bi-envelope fs-5 text-secondary"></i>
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  style="font-size: 8px"
+                >
+                  0
+                </span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" style="width: 300px">
+                <li><h6 class="dropdown-header">Message</h6></li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bi bi-check-circle text-success"></i> Order
+                    completed</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bi bi-person-plus text-primary"></i> New user
+                    registered</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bi bi-exclamation-triangle text-warning"></i>
+                    Server warning</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <!-- Notifications -->
+            <div class="dropdown me-3">
+              <button
+                class="btn position-relative"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                <i class="bi bi-bell fs-5 text-secondary"></i>
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  style="font-size: 10px"
+                >
+                  3
+                </span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" style="width: 300px">
+                <li><h6 class="dropdown-header">Notifications</h6></li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bi bi-check-circle text-success"></i> Order
+                    completed</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bi bi-person-plus text-primary"></i> New user
+                    registered</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bi bi-exclamation-triangle text-warning"></i>
+                    Server warning</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <!-- User Menu -->
+            <div class="dropdown">
+              <div class="user-menu" data-bs-toggle="dropdown">
+                <img
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&amp;h=100&amp;fit=crop&amp;crop=face"
+                  alt="User"
+                  loading="lazy"
+                  onerror="
+                    this.alt = 'User';
+                    this.src =
+                      'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%2310b981%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22>JD</text></svg>';
+                  "
+                />
+                <i
+                  class="bi bi-chevron-down text-secondary d-none d-md-block"
+                ></i>
+              </div>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bi bi-person"></i> Profile</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bi bi-gear"></i> Settings</a
+                  >
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li>
+                  <a class="dropdown-item text-danger" href="#"
+                    ><i class="bi bi-box-arrow-left"></i> Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Content -->
+      <div id="content">
+        <!-- Page Header -->
+        <div class="page-header">
+          <h1 class="page-title" id="pageTitle">Dashboard</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Dashboard
+              </li>
+            </ol>
+          </nav>
+        </div>
+
+        <!-- carousel -->
+        <div class="row mb-4 g-4 h-100" style="height: 100px">
+          <div class="col-12 col-sm-12 col-xl-12">
+            <div
+              id="carouselExample"
+              class="carousel slide"
+              data-bs-ride="carousel"
+            >
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img
+                    src="https://picsum.photos/1200/500?random=1"
+                    class="d-block w-100"
+                    alt="Slide 1"
+                  />
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="https://picsum.photos/1200/500?random=2"
+                    class="d-block w-100"
+                    alt="Slide 2"
+                  />
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="https://picsum.photos/1200/500?random=3"
+                    class="d-block w-100"
+                    alt="Slide 3"
+                  />
+                </div>
+              </div>
+
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExample"
+                data-bs-slide="prev"
+              >
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExample"
+                data-bs-slide="next"
+              >
+                <span class="carousel-control-next-icon"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Stats Cards -->
+        <div class="row g-4 mb-4">
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="stats-card">
+                  <div class="stats-icon green">
+                    <i class="bi bi-currency-dollar"></i>
+                  </div>
+                  <div>
+                    <div class="stats-value">$24,580</div>
+                    <div class="stats-label">Total Revenue</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="stats-card">
+                  <div class="stats-icon blue">
+                    <i class="bi bi-bag-check"></i>
+                  </div>
+                  <div>
+                    <div class="stats-value">1,245</div>
+                    <div class="stats-label">Total Orders</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="stats-card">
+                  <div class="stats-icon orange">
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <div>
+                    <div class="stats-value">3,842</div>
+                    <div class="stats-label">Total Users</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="stats-card">
+                  <div class="stats-icon purple">
+                    <i class="bi bi-box-seam"></i>
+                  </div>
+                  <div>
+                    <div class="stats-value">568</div>
+                    <div class="stats-label">Products</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Content Row -->
+        <div class="row g-4">
+          <!-- Buttons & Badges Card -->
+          <div class="col-12 col-lg-6">
+            <div class="card h-100">
+              <div class="card-header">
+                <h5 class="mb-0">Buttons &amp; Badges</h5>
+              </div>
+              <div class="card-body">
+                <!-- Buttons -->
+                <h6 class="text-muted mb-3">Buttons</h6>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                  <button class="btn btn-primary">Primary</button>
+                  <button class="btn btn-success">Success</button>
+                  <button class="btn btn-warning">Warning</button>
+                  <button class="btn btn-danger">Danger</button>
+                  <button class="btn btn-outline-primary">Outline</button>
+                </div>
+                <!-- Default Badges -->
+                <h6 class="text-muted mb-3">Default Badges</h6>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                  <span class="badge bg-primary">Primary</span>
+                  <span class="badge bg-success">Success</span>
+                  <span class="badge bg-warning text-dark">Warning</span>
+                  <span class="badge bg-danger">Danger</span>
+                  <span class="badge bg-info">Info</span>
+                </div>
+                <!-- Soft Badges -->
+                <h6 class="text-muted mb-3">Soft Badges</h6>
+                <div class="d-flex flex-wrap gap-2">
+                  <span class="badge bg-primary-soft">Primary</span>
+                  <span class="badge bg-success-soft">Success</span>
+                  <span class="badge bg-warning-soft">Warning</span>
+                  <span class="badge bg-danger-soft">Danger</span>
+                  <span class="badge bg-info-soft">Info</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Form Card -->
+          <div class="col-12 col-lg-6">
+            <div class="card h-100">
+              <div class="card-header">
+                <h5 class="mb-0">Form Elements</h5>
+              </div>
+              <div class="card-body">
+                <form id="sampleForm">
+                  <div class="mb-3">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="fullName"
+                      placeholder="Enter your name"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      placeholder="Enter your email"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-select" id="category">
+                      <option selected>Select category</option>
+                      <option value="1">Technology</option>
+                      <option value="2">Business</option>
+                      <option value="3">Design</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea
+                      class="form-control"
+                      id="message"
+                      rows="3"
+                      placeholder="Write your message"
+                    ></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="newsletter"
+                      />
+                      <label class="form-check-label" for="newsletter">
+                        Subscribe to newsletter
+                      </label>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Submit Form
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- Table Card -->
+          <div class="col-12">
+            <div class="card">
+              <div
+                class="card-header d-flex justify-content-between align-items-center"
+              >
+                <h5 class="mb-0">Recent Orders</h5>
+                <button
+                  class="btn btn-primary btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#orderModal"
+                >
+                  <i class="bi bi-plus-lg me-1"></i> Add Order
+                </button>
+              </div>
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-hover mb-0">
+                    <thead>
+                      <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Product</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>#ORD-001</td>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <img
+                              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&amp;h=100&amp;fit=crop&amp;crop=face"
+                              alt="Sarah"
+                              class="avatar-sm"
+                              loading="lazy"
+                              onerror="this.style.display = 'none'"
+                            />
+                            Sarah Wilson
+                          </div>
+                        </td>
+                        <td>MacBook Pro</td>
+                        <td>$2,499</td>
+                        <td>
+                          <span class="badge bg-success-soft">Completed</span>
+                        </td>
+                        <td>
+                          <button class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-eye"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>#ORD-002</td>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <img
+                              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&amp;h=100&amp;fit=crop&amp;crop=face"
+                              alt="Mike"
+                              class="avatar-sm"
+                              loading="lazy"
+                              onerror="this.style.display = 'none'"
+                            />
+                            Mike Johnson
+                          </div>
+                        </td>
+                        <td>iPhone 15 Pro</td>
+                        <td>$1,199</td>
+                        <td>
+                          <span class="badge bg-warning-soft">Pending</span>
+                        </td>
+                        <td>
+                          <button class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-eye"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>#ORD-003</td>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <img
+                              src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&amp;h=100&amp;fit=crop&amp;crop=face"
+                              alt="Emily"
+                              class="avatar-sm"
+                              loading="lazy"
+                              onerror="this.style.display = 'none'"
+                            />
+                            Emily Davis
+                          </div>
+                        </td>
+                        <td>AirPods Pro</td>
+                        <td>$249</td>
+                        <td>
+                          <span class="badge bg-info-soft">Processing</span>
+                        </td>
+                        <td>
+                          <button class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-eye"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="mb-0">
+          © 2024 GreenAdmin. All rights reserved. Built with Bootstrap 5.
+        </p>
+      </footer>
+    </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="orderModal"
+      tabindex="-1"
+      aria-labelledby="orderModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="orderModalLabel">Add New Order</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="orderForm">
+              <div class="mb-3">
+                <label for="customerName" class="form-label"
+                  >Customer Name</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="customerName"
+                  placeholder="Enter customer name"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="productName" class="form-label">Product</label>
+                <select class="form-select" id="productName">
+                  <option selected>Select product</option>
+                  <option value="1">MacBook Pro</option>
+                  <option value="2">iPhone 15 Pro</option>
+                  <option value="3">AirPods Pro</option>
+                  <option value="4">iPad Air</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="amount" class="form-label">Amount</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="amount"
+                  placeholder="Enter amount"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Add Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- main js -->
+    <script src="script/admin-script.js"></script>
+  </body>
+</html>
